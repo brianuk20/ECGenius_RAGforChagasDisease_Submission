@@ -62,13 +62,24 @@ def train_model(data_folder, model_folder, verbose):
     # This very simple model trains a random forest model with very simple features.
 
     # Define the parameters for the random forest classifier and regressor.
-    n_estimators = 12  # Number of trees in the forest.
-    max_leaf_nodes = 34  # Maximum number of leaf nodes in each tree.
-    random_state = 56  # Random state; set for reproducibility.
+    n_estimators = 200
+    max_depth = 15
+    min_samples_split = 5
+    min_samples_leaf = 2
+    max_features = 'sqrt'
+    bootstrap = True
+    random_state = 56
 
-    # Fit the model.
+    # Fit the model
     model = RandomForestClassifier(
-        n_estimators=n_estimators, max_leaf_nodes=max_leaf_nodes, random_state=random_state).fit(features, labels)
+        n_estimators=n_estimators,
+        max_depth=max_depth,
+        min_samples_split=min_samples_split,
+        min_samples_leaf=min_samples_leaf,
+        max_features=max_features,
+        bootstrap=bootstrap,
+        random_state=random_state
+    ).fit(features, labels)
 
     # Create a folder for the model if it does not already exist.
     os.makedirs(model_folder, exist_ok=True)
